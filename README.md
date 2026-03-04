@@ -12,3 +12,6 @@ mvn clean javafx:run
 - SQLite(JDBC)
 - Maven
 
+## Ramas del repositorio
+- Main: Rama principal
+- dev: Rama de desarrollo
