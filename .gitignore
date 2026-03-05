@@ -43,6 +43,10 @@ build/
 # Logs
 *.log
 
-# SQLite (Evitamos subir la db)
+# Evitamos subir la db
 *.db
 *.sqlite
+
+# Target
+target/
+
