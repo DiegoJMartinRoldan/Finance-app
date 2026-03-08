@@ -40,4 +40,13 @@ public class Category {
     public void setKind(String kind) {
         this.kind = kind;
     }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", kind='" + kind + '\'' +
+                '}';
+    }
 }

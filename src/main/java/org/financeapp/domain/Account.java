@@ -5,18 +5,7 @@ public class Account {
     private int id;
     private String name;
     private String type;
-
-    public Account(){
-    // constructor vacio por ahora.
-    }
-
-
-    public Account(int id, String name, String type) {
-        this.id = id;
-        this.name = name;
-        this.type = type;
-    }
-
+    private double initialBalance;
 
     public int getId() {
         return id;
@@ -40,5 +29,35 @@ public class Account {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public double getInitialBalance() {
+        return initialBalance;
+    }
+
+    public void setInitialBalance(double initialBalance) {
+        this.initialBalance = initialBalance;
+    }
+
+    public Account(){
+        // constructor vacio por ahora.
+    }
+
+    public Account(int id, String name, String type, double initialBalance) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.initialBalance = initialBalance;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", initialBalance=" + initialBalance +
+                '}';
     }
 }

@@ -6,8 +6,9 @@ PRAGMA foreign_keys = ON;
 -- Tabla para cuentas
 CREATE TABLE IF NOT EXISTS account (
 id INTEGER PRIMARY KEY AUTOINCREMENT,
-name TEXT NOT NULL,
-type TEXT NOT NULL CHECK (type IN ('CASH', 'BANK', 'CARD'))
+name TEXT NOT NULL UNIQUE,
+type TEXT NOT NULL CHECK (type IN ('CASH', 'BANK', 'CARD')),
+initial_balance REAL NOT NULL DEFAULT 0
 );
 
 -- Tabla para categorías
@@ -32,9 +33,9 @@ FOREIGN KEY (category_id) REFERENCES category(id) ON DELETE RESTRICT
 );
 
 -- Índices básicos para rendimiento en filtros habituales
-CREATE INDEX IF NOT EXISTS idx_ft_date ON finance_transaction(date);
-CREATE INDEX IF NOT EXISTS idx_ft_account ON finance_transaction(account_id);
-CREATE INDEX IF NOT EXISTS idx_ft_category ON finance_transaction(category_id);
+CREATE INDEX IF NOT EXISTS index_financeTransaction_date ON finance_transaction(date);
+CREATE INDEX IF NOT EXISTS index_financeTransaction_account ON finance_transaction(account_id);
+CREATE INDEX IF NOT EXISTS index_financeTransaction_category ON finance_transaction(category_id);
 
 -- Seed para cuenta por defecto.
 INSERT INTO account (name, type)
