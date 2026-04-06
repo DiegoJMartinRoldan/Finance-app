@@ -106,16 +106,12 @@ public class AccountService {
         }
     }
 
-    public double getCurrentBalance(int accountId) throws Exception {
-        Account account = accountDao.findById(accountId);
-
-        if (account == null) {
-            throw new IllegalArgumentException("Account not found with id: " + accountId);
+    public double getCurrentBalance(int accountId) throws ServiceException {
+        try {
+            return accountDao.currentBalance(accountId);
+        } catch (Exception e) {
+            throw new ServiceException("No se pudo calcular el saldo actual.", e);
         }
-
-        double transactionsSum = accountDao.allAccountTransactions(accountId);
-
-        return account.getInitialBalance() + transactionsSum;
     }
 
 

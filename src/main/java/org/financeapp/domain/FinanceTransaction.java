@@ -6,8 +6,10 @@ public class FinanceTransaction {
 
 
     private int id;
+    private String type;
     private int accountId;
-    private int categoryId;
+    private Integer toAccountId;
+    private Integer categoryId;
     private double amount;
     private LocalDate date;
     private String description;
@@ -15,9 +17,11 @@ public class FinanceTransaction {
     public FinanceTransaction() {
     }
 
-    public FinanceTransaction(int id, int accountId, int categoryId, double amount, LocalDate date, String description) {
+    public FinanceTransaction(int id, String type, int accountId, Integer toAccountId, Integer categoryId, double amount, LocalDate date, String description) {
         this.id = id;
+        this.type = type;
         this.accountId = accountId;
+        this.toAccountId = toAccountId;
         this.categoryId = categoryId;
         this.amount = amount;
         this.date = date;
@@ -32,6 +36,14 @@ public class FinanceTransaction {
         this.id = id;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public int getAccountId() {
         return accountId;
     }
@@ -40,11 +52,19 @@ public class FinanceTransaction {
         this.accountId = accountId;
     }
 
-    public int getCategoryId() {
+    public Integer getToAccountId() {
+        return toAccountId;
+    }
+
+    public void setToAccountId(Integer toAccountId) {
+        this.toAccountId = toAccountId;
+    }
+
+    public Integer getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(int categoryId) {
+    public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -70,5 +90,19 @@ public class FinanceTransaction {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "FinanceTransaction{" +
+                "id=" + id +
+                ", type='" + type + '\'' +
+                ", accountId=" + accountId +
+                ", toAccountId=" + toAccountId +
+                ", categoryId=" + categoryId +
+                ", amount=" + amount +
+                ", date=" + date +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

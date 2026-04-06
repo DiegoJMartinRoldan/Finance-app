@@ -132,21 +132,27 @@ public class AccountDao {
         final String sql =
                 """
                 SELECT COALESCE(SUM(
-                CASE
-                WHEN c.kind = 'INCOME' THEN ft.amount
-                WHEN c.kind = 'EXPENSE' THEN -ft.amount
-                END
+                    CASE
+                        WHEN ft.type = 'INCOME' AND ft.account_id = ? THEN ft.amount
+                        WHEN ft.type = 'EXPENSE' AND ft.account_id = ? THEN -ft.amount
+                        WHEN ft.type = 'TRANSFER' AND ft.account_id = ? THEN -ft.amount
+                        WHEN ft.type = 'TRANSFER' AND ft.to_account_id = ? THEN ft.amount
+                        ELSE 0
+                    END
                 ), 0)
                 FROM finance_transaction ft
-                JOIN category c ON ft.category_id = c.id
-                WHERE ft.account_id = ?
+                WHERE ft.account_id = ? OR ft.to_account_id = ?
                 """;
-
 
         try (Connection connection = Database.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
             preparedStatement.setInt(1, id);
+            preparedStatement.setInt(2, id);
+            preparedStatement.setInt(3, id);
+            preparedStatement.setInt(4, id);
+            preparedStatement.setInt(5, id);
+            preparedStatement.setInt(6, id);
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {

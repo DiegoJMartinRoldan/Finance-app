@@ -24,8 +24,8 @@ public class Main extends Application {
                     new org.financeapp.data.dao.FinanceTransactionDao()
             );
 
-// Ejemplo: accountId=1 y categoryId=1 (según tus seeds)
-            txService.create(1, 1, 12.50, java.time.LocalDate.now(), "Prueba café");
+            // Ejemplo: gasto en la cuenta 1, categoría 1
+            txService.create("EXPENSE", 1, null, 1, 12.50, java.time.LocalDate.now(), "Prueba café");
 
 
         } catch (Exception e) {

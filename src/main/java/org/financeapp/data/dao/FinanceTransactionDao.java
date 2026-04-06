@@ -3,10 +3,7 @@ package org.financeapp.data.dao;
 import org.financeapp.data.db.Database;
 import org.financeapp.domain.FinanceTransaction;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +13,7 @@ public class FinanceTransactionDao {
     public List<FinanceTransaction> findAll() throws Exception {
         final String sql =
                 """
-                SELECT id, account_id, category_id, amount, date, description
+                SELECT id, type, account_id, to_account_id, category_id, amount, date, description
                 FROM finance_transaction
                 ORDER BY date DESC, id DESC
                 """;
@@ -28,12 +25,23 @@ public class FinanceTransactionDao {
              ResultSet resultSet = preparedStatement.executeQuery()) {
 
             while (resultSet.next()) {
+                int toAccountValue = resultSet.getInt("to_account_id");
+                Integer toAccountId = resultSet.wasNull() ? null : toAccountValue;
+
+                int categoryValue = resultSet.getInt("category_id");
+                Integer categoryId = resultSet.wasNull() ? null : categoryValue;
+
+                String stringDate = resultSet.getString("date");
+                LocalDate date = (stringDate == null || stringDate.isBlank()) ? null : LocalDate.parse(stringDate);
+
                 list.add(new FinanceTransaction(
                         resultSet.getInt("id"),
+                        resultSet.getString("type"),
                         resultSet.getInt("account_id"),
-                        resultSet.getInt("category_id"),
+                        toAccountId,
+                        categoryId,
                         resultSet.getDouble("amount"),
-                        LocalDate.parse(resultSet.getString("date")),
+                        date,
                         resultSet.getString("description")
                 ));
             }
@@ -44,7 +52,7 @@ public class FinanceTransactionDao {
     public FinanceTransaction findById(int id) throws Exception {
         final String sql =
                 """
-                SELECT id, account_id, category_id, amount, date, description
+                SELECT id, type, account_id, to_account_id, category_id, amount, date, description
                 FROM finance_transaction
                 WHERE id = ?
                 """;
@@ -55,41 +63,63 @@ public class FinanceTransactionDao {
             preparedStatement.setInt(1, id);
 
             try (ResultSet resultSet = preparedStatement.executeQuery())
-                {
-               if (resultSet.next()) {
-                   String stringDate =  resultSet.getString("date");
+            {
+                if (resultSet.next()) {
+                    int toAccountValue = resultSet.getInt("to_account_id");
+                    Integer toAccountId = resultSet.wasNull() ? null : toAccountValue;
 
-                   LocalDate date = (stringDate == null || stringDate.isBlank()) ? null : LocalDate.parse(stringDate);
+                    int categoryValue = resultSet.getInt("category_id");
+                    Integer categoryId = resultSet.wasNull() ? null : categoryValue;
 
-                   return new FinanceTransaction(
-                           resultSet.getInt("id"),
-                           resultSet.getInt("account_id"),
-                           resultSet.getInt("category_id"),
-                           resultSet.getDouble("amount"),
-                           date,
-                           resultSet.getString("description")
-                   );
-               }
+                    String stringDate = resultSet.getString("date");
+
+                    LocalDate date = (stringDate == null || stringDate.isBlank()) ? null : LocalDate.parse(stringDate);
+
+                    return new FinanceTransaction(
+                            resultSet.getInt("id"),
+                            resultSet.getString("type"),
+                            resultSet.getInt("account_id"),
+                            toAccountId,
+                            categoryId,
+                            resultSet.getDouble("amount"),
+                            date,
+                            resultSet.getString("description")
+                    );
+                }
             }
         }
         return null;
     }
 
+
     public int insert(FinanceTransaction transaction) throws Exception {
         final String sql =
                 """
-                INSERT INTO finance_transaction (account_id, category_id, amount, date, description)
-                VALUES (?, ?, ?, ?, ?)
+                INSERT INTO finance_transaction (type, account_id, to_account_id, category_id, amount, date, description)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
                 """;
 
         try (Connection connection = Database.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
-            preparedStatement.setInt(1, transaction.getAccountId());
-            preparedStatement.setInt(2, transaction.getCategoryId());
-            preparedStatement.setDouble(3, transaction.getAmount());
-            preparedStatement.setString(4, transaction.getDate().toString()); // ISO-8601
-            preparedStatement.setString(5, transaction.getDescription());
+            preparedStatement.setString(1, transaction.getType());
+            preparedStatement.setInt(2, transaction.getAccountId());
+
+            if (transaction.getToAccountId() != null) {
+                preparedStatement.setInt(3, transaction.getToAccountId());
+            } else {
+                preparedStatement.setNull(3, Types.INTEGER);
+            }
+
+            if (transaction.getCategoryId() != null) {
+                preparedStatement.setInt(4, transaction.getCategoryId());
+            } else {
+                preparedStatement.setNull(4, Types.INTEGER);
+            }
+
+            preparedStatement.setDouble(5, transaction.getAmount());
+            preparedStatement.setString(6, transaction.getDate().toString());
+            preparedStatement.setString(7, transaction.getDescription());
             return preparedStatement.executeUpdate();
         }
     }
@@ -98,22 +128,37 @@ public class FinanceTransactionDao {
         final String sql =
                 """
                 UPDATE finance_transaction
-                SET account_id = ?, category_id = ?, amount = ?, date = ?, description = ?
+                SET type = ?, account_id = ?, to_account_id = ?, category_id = ?, amount = ?, date = ?, description = ?
                 WHERE id = ?
                 """;
 
         try (Connection connection = Database.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
-            preparedStatement.setInt(1, transaction.getAccountId());
-            preparedStatement.setInt(2, transaction.getCategoryId());
-            preparedStatement.setDouble(3, transaction.getAmount());
-            preparedStatement.setString(4, transaction.getDate().toString());
-            preparedStatement.setString(5, transaction.getDescription());
-            preparedStatement.setInt(6, transaction.getId());
+            preparedStatement.setString(1, transaction.getType());
+            preparedStatement.setInt(2, transaction.getAccountId());
+
+            if (transaction.getToAccountId() != null) {
+                preparedStatement.setInt(3, transaction.getToAccountId());
+            } else {
+                preparedStatement.setNull(3, Types.INTEGER);
+            }
+
+            if (transaction.getCategoryId() != null) {
+                preparedStatement.setInt(4, transaction.getCategoryId());
+            } else {
+                preparedStatement.setNull(4, Types.INTEGER);
+            }
+
+            preparedStatement.setDouble(5, transaction.getAmount());
+            preparedStatement.setString(6, transaction.getDate().toString());
+            preparedStatement.setString(7, transaction.getDescription());
+            preparedStatement.setInt(8, transaction.getId());
             return preparedStatement.executeUpdate();
         }
     }
+
+
 
     public int deleteById(int id) throws Exception {
         final String sql = "DELETE FROM finance_transaction WHERE id = ?";
