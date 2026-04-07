@@ -2,7 +2,6 @@ package org.financeapp.services;
 
 import org.financeapp.data.dao.CategoryDao;
 import org.financeapp.domain.Category;
-import org.financeapp.services.ServiceException;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -103,19 +102,17 @@ public class CategoryService {
                 throw new ServiceException("La categoría no existe o ya fue eliminada.");
             }
         } catch (SQLException exception) {
-            // FK constraint: hay transacciones asociadas
             if (CategoryDao.foreignKeyFail(exception)) {
-                throw new ServiceException("No se puede eliminar: hay transacciones asociadas a esta categoría.");
+                throw new ServiceException("No se puede eliminar la categoría porque tiene transacciones asociadas.");
             }
             throw new ServiceException("Error al eliminar la categoría.", exception);
-        } catch (Exception e) {
-            throw new ServiceException("Error al eliminar la categoría.", e);
+        } catch (Exception exception) {
+            throw new ServiceException("Error al eliminar la categoría.", exception);
         }
     }
 
 
     // Validaciones sencillas.
-
 
     private String normalizeName(String name) {
         return name == null ? "" : name.trim();

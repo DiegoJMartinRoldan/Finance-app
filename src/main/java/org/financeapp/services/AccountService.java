@@ -100,6 +100,9 @@ public class AccountService {
                 throw new ServiceException("La cuenta no existe o ya fue eliminada.");
             }
         } catch (SQLException exception) {
+            if (AccountDao.foreignKeyFail(exception)) {
+                throw new ServiceException("No se puede eliminar la cuenta porque tiene transacciones asociadas.");
+            }
             throw new ServiceException("Error al eliminar la cuenta.", exception);
         } catch (Exception exception) {
             throw new ServiceException("Error al eliminar la cuenta.", exception);

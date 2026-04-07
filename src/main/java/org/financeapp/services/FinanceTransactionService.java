@@ -1,6 +1,8 @@
 package org.financeapp.services;
 
+import org.financeapp.data.dao.CategoryDao;
 import org.financeapp.data.dao.FinanceTransactionDao;
+import org.financeapp.domain.Category;
 import org.financeapp.domain.FinanceTransaction;
 
 import java.time.LocalDate;
@@ -9,10 +11,12 @@ import java.util.List;
 public class FinanceTransactionService {
 
     private final FinanceTransactionDao financeTransactionDao;
+    private final CategoryDao categoryDao;
 
     public FinanceTransactionService(FinanceTransactionDao dao) {
 
         this.financeTransactionDao = dao;
+        this.categoryDao = new CategoryDao();
     }
 
 
@@ -51,14 +55,7 @@ public class FinanceTransactionService {
         String desc = normalizeDescription(description);
 
         FinanceTransaction transaction = new FinanceTransaction(
-                id,
-                type,
-                accountId,
-                toAccountId,
-                categoryId,
-                amount,
-                date,
-                desc
+                id, type, accountId, toAccountId, categoryId, amount, date, desc
         );
 
         try {
@@ -102,6 +99,21 @@ public class FinanceTransactionService {
         if (type.equals("INCOME") || type.equals("EXPENSE")) {
             if (categoryId == null || categoryId <= 0) throw new ServiceException("Categoría inválida.");
             if (toAccountId != null) throw new ServiceException("Un ingreso o gasto no puede tener cuenta destino.");
+
+            Category category;
+            try {
+                category = categoryDao.findById(categoryId);
+            } catch (Exception e) {
+                throw new ServiceException("No se pudo validar la categoría.", e);
+            }
+
+            if (category == null) {
+                throw new ServiceException("La categoría no existe.");
+            }
+
+            if (!category.getKind().equals(type)) {
+                throw new ServiceException("La categoría no es válida para este tipo de transacción.");
+            }
         }
 
         if (type.equals("TRANSFER")) {

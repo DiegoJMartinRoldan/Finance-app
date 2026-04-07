@@ -173,4 +173,8 @@ public class AccountDao {
 
         return account.getInitialBalance() + allAccountTransactions(accountId);
     }
+    public static boolean foreignKeyFail(SQLException exception) {
+        String message = exception.getMessage();
+        return message != null && message.toLowerCase().contains("foreign key");
+    }
 }

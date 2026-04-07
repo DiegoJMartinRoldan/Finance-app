@@ -11,9 +11,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            System.out.println("Inicializando la base de datos...");
             Database.initialize();
-            System.out.println("Base de datos Inicializada correctamente");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));
             Scene scene = new Scene(loader.load(), 700, 450);
 
@@ -24,12 +22,8 @@ public class Main extends Application {
                     new org.financeapp.data.dao.FinanceTransactionDao()
             );
 
-            // Ejemplo: gasto en la cuenta 1, categoría 1
-            txService.create("EXPENSE", 1, null, 1, 12.50, java.time.LocalDate.now(), "Prueba café");
-
 
         } catch (Exception e) {
-            e.printStackTrace();
             throw new RuntimeException("La base de datos no inicia correctamente");
         }
 

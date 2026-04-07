@@ -110,8 +110,7 @@ public class CategoryDao {
 
     // Utilidad para detectar el caso en que se quiera borrar una categoría con transacciónes aplicadas.
     public static boolean foreignKeyFail(SQLException exception) {
-
         String message = exception.getMessage();
-        return message != null && message.toLowerCase().contains("Foreign Key failed");
+        return message != null && message.toLowerCase().contains("foreign key");
     }
 }

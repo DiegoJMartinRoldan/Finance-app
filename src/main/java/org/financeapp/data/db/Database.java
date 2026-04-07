@@ -22,7 +22,13 @@ public class Database {
 
     // Conexión a la base de datos de SQLite.
     public static Connection getConnection() throws Exception {
-        return DriverManager.getConnection(JDBC_URL);
+        Connection connection = DriverManager.getConnection(JDBC_URL);
+
+        try (Statement statement = connection.createStatement()) {
+            statement.execute("PRAGMA foreign_keys = ON;");
+        }
+
+        return connection;
     }
 
 
