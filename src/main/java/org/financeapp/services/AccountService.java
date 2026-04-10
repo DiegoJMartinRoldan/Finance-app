@@ -29,7 +29,7 @@ public class AccountService {
 
     public Account getAccountById(int id) throws ServiceException {
         if (id <= 0) {
-            throw new ServiceException("Cuent no válida");
+            throw new ServiceException("Cuenta no válida");
 
         }
         try {

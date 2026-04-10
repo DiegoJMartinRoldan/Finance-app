@@ -81,6 +81,49 @@ public class FinanceTransactionService {
         }
     }
 
+    public List<FinanceTransaction> getByAccountId(int accountId) throws ServiceException {
+        if (accountId <= 0) {
+            throw new ServiceException("Cuenta inválida.");
+        }
+
+        try {
+            return financeTransactionDao.findByAccountId(accountId);
+        } catch (Exception e) {
+            throw new ServiceException("No se pudieron cargar las transacciones filtradas por cuenta.", e);
+        }
+    }
+
+    public List<FinanceTransaction> getByCategoryId(int categoryId) throws ServiceException {
+        if (categoryId <= 0) {
+            throw new ServiceException("Categoría inválida.");
+        }
+
+        try {
+            return financeTransactionDao.findByCategoryId(categoryId);
+        } catch (Exception e) {
+            throw new ServiceException("No se pudieron cargar las transacciones filtradas por categoría.", e);
+        }
+    }
+
+    private String normalizeDescription(String description) {
+        if (description == null) return "";
+        return description.trim();
+    }
+    public List<FinanceTransaction> getByType(String type) throws ServiceException {
+        if (type == null || type.isBlank()) {
+            throw new ServiceException("El tipo de transacción es obligatorio.");
+        }
+
+        if (!type.equals("INCOME") && !type.equals("EXPENSE") && !type.equals("TRANSFER")) {
+            throw new ServiceException("Tipo de transacción no válido.");
+        }
+
+        try {
+            return financeTransactionDao.findByType(type);
+        } catch (Exception e) {
+            throw new ServiceException("No se pudieron cargar las transacciones filtradas por tipo.", e);
+        }
+    }
 
 
     // Validaciones
@@ -117,15 +160,11 @@ public class FinanceTransactionService {
         }
 
         if (type.equals("TRANSFER")) {
-            if (toAccountId == null || toAccountId <= 0) throw new ServiceException("La cuenta destino es obligatoria en una transferencia.");
-            if (accountId == toAccountId) throw new ServiceException("La cuenta origen y destino no pueden ser la misma.");
+            if (toAccountId == null || toAccountId <= 0) throw new ServiceException("la cuenta destino es obligatoria en una transferencia.");
+            if (accountId == toAccountId) throw new ServiceException("La cuenta origen y destino no puededn ser la misma.");
             if (categoryId != null) throw new ServiceException("Una transferencia no puede tener categoría.");
         }
 
     }
 
-    private String normalizeDescription(String description) {
-        if (description == null) return "";
-        return description.trim();
-    }
 }

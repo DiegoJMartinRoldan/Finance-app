@@ -136,4 +136,6 @@ public class CategoryService {
             throw new ServiceException("Tipo de categoría inválido.");
         }
     }
+    private static final Set<String> PROTECTED_CATEGORY_NAMES =
+            Set.of("Nómina", "Comida", "Transporte", "Ocio");
 }
