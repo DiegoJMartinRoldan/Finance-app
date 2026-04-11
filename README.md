@@ -8,31 +8,40 @@ Doble Grado de Desarrollo de Aplicaciones Multiplataforma y Desarrolllo de Aplic
 mvn clean javafx:run
 ```
 
+
+## Funcionalidades principales
+
 La aplicación permite gestionar:
+
 - Cuentas
 - Categorías (ingresos y gastos)
 - Transacciones financieras
 
 ## Tecnologías utilizadas
+
 - Java 17
 - JavaFX
-- SQLite(JDBC)
+- SQLite (JDBC)
 - Maven
 
 ## Estructura del proyecto
 
-El proyecto está organizado de forma sencilla siguiendo varias capas:
+El proyecto sigue una organización por capas sencilla:
 
-- domain      -- entidades del modelo (Account, Category, Transaction)
-- dao         -- acceso a base de datos
-- services    -- lógica de negocio
-- controllers -- controladores de JavaFX
-- resources   -- fxml y base de datos .sql
+- `domain` → entidades del modelo (Account, Category, Transaction)
+- `dao` → acceso a base de datos
+- `service` → lógica de negocio y validaciones
+- `controllers` → controladores de JavaFX
+- `resources` → archivos FXML y script SQL
 
-## Ramas del repositorio
-- Main: Rama principal
-- dev: Rama de desarrollo
+## Control de versiones
 
-## Enlaces de interés
-- https://github.com/DiegoJMartinRoldan
-- https://github.com/DiegoJMartinRoldan/Finance-app
+El repositorio se organiza en dos ramas principales:
+
+- `main` → versión estable
+- `dev` → desarrollo y nuevas funcionalidades
+
+## Enlaces
+
+- GitHub personal: https://github.com/DiegoJMartinRoldan
+- Repositorio del proyecto: https://github.com/DiegoJMartinRoldan/Finance-app
