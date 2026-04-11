@@ -1,0 +1,450 @@
+/* ===== APP GENERAL ===== */
+
+.app-root {
+    -fx-background-color: #f3f4f6;
+}
+
+.content-panel {
+    -fx-background-color: #fcfcfb;
+    -fx-background-radius: 18;
+    -fx-border-color: #e4e7eb;
+    -fx-border-radius: 18;
+    -fx-border-width: 1;
+    -fx-padding: 6;
+}
+
+/* ===== TOP / RESUMEN ===== */
+
+.top-panel {
+    -fx-background-color: #fcfcfb;
+    -fx-background-radius: 18;
+    -fx-border-color: #e4e7eb;
+    -fx-border-radius: 18;
+    -fx-border-width: 1;
+}
+
+.summary-title {
+    -fx-font-size: 16px;
+    -fx-text-fill: #6b7280;
+    -fx-font-weight: bold;
+}
+
+.summary-balance {
+    -fx-font-size: 38px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0f172a;
+}
+
+.summary-side-cards {
+    -fx-alignment: CENTER_LEFT;
+}
+
+.summary-mini-card {
+    -fx-min-width: 170px;
+    -fx-pref-width: 170px;
+    -fx-max-width: 170px;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-width: 1;
+    -fx-padding: 12 14 12 14;
+    -fx-spacing: 10;
+}
+
+.summary-mini-card-income {
+    -fx-background-color: #f3faf5;
+    -fx-border-color: #dcebe1;
+}
+
+.summary-mini-card-expense {
+    -fx-background-color: #fcf3f3;
+    -fx-border-color: #eadcdc;
+}
+
+.summary-mini-title {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.summary-mini-title-income {
+    -fx-text-fill: #4c7a57;
+}
+
+.summary-mini-title-expense {
+    -fx-text-fill: #9a5d5d;
+}
+
+.summary-mini-value {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.summary-mini-value-income {
+    -fx-text-fill: #2f6b3c;
+}
+
+.summary-mini-value-expense {
+    -fx-text-fill: #b14444;
+}
+
+/* ===== NAVEGACIÓN ===== */
+
+.nav-bar {
+    -fx-background-color: transparent;
+    -fx-padding: 0 2 2 2;
+}
+
+.nav-button {
+    -fx-background-color: #e3e7ec;
+    -fx-text-fill: #334155;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #d1d7de;
+    -fx-border-width: 1;
+    -fx-padding: 9 20 9 20;
+    -fx-cursor: hand;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.nav-button:hover {
+    -fx-background-color: #e9edf1;
+}
+
+.nav-button-active {
+    -fx-background-color: #fcfcfb;
+    -fx-text-fill: #111827;
+    -fx-border-color: #d8dee5;
+    -fx-border-width: 1;
+}
+
+/* ===== TIPOGRAFÍA GENERAL ===== */
+
+.section-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0f172a;
+}
+
+.section-subtitle {
+    -fx-font-size: 13px;
+    -fx-text-fill: #64748b;
+}
+
+/* ===== BOTONES ACCIÓN ===== */
+
+.btn-add {
+    -fx-background-color: #2f6b3c;
+    -fx-text-fill: white;
+    -fx-background-radius: 10;
+    -fx-padding: 8 18 8 18;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.btn-add:hover {
+    -fx-background-color: #285b33;
+}
+
+.btn-edit {
+    -fx-background-color: white;
+    -fx-text-fill: #334155;
+    -fx-border-color: #d6dbe1;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 8 18 8 18;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.btn-edit:hover {
+    -fx-background-color: #f8fafc;
+}
+
+.btn-delete {
+    -fx-background-color: #b14444;
+    -fx-text-fill: white;
+    -fx-background-radius: 10;
+    -fx-padding: 8 18 8 18;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.btn-delete:hover {
+    -fx-background-color: #993b3b;
+}
+
+/* ===== VISTAS INTERNAS ===== */
+
+.accounts-root,
+.transactions-root,
+.categories-root {
+    -fx-background-color: transparent;
+}
+
+.accounts-header,
+.transactions-header,
+.categories-header {
+    -fx-padding: 0 0 10 0;
+}
+
+.accounts-actions,
+.transactions-actions,
+.categories-actions {
+    -fx-background-color: transparent;
+    -fx-alignment: CENTER-LEFT;
+    -fx-padding: 4 0 4 0;
+}
+
+.accounts-scroll,
+.transactions-scroll,
+.categories-scroll {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.accounts-scroll > .viewport,
+.transactions-scroll > .viewport,
+.categories-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.accounts-container,
+.transactions-container,
+.categories-container {
+    -fx-background-color: transparent;
+    -fx-padding: 4 0 6 0;
+}
+
+/* ===== CARDS GENERALES ===== */
+
+.account-card,
+.transaction-card,
+.category-card {
+    -fx-background-color: white;
+    -fx-background-radius: 14;
+    -fx-border-color: #e7ebef;
+    -fx-border-radius: 14;
+    -fx-border-width: 1;
+    -fx-padding: 15;
+    -fx-cursor: hand;
+}
+
+.account-card:hover,
+.transaction-card:hover,
+.category-card:hover {
+    -fx-border-color: #d9e0e6;
+    -fx-background-color: #fcfcfd;
+}
+
+.account-card-selected,
+.transaction-card-selected,
+.category-card-selected {
+    -fx-background-color: #f6f8fa;
+    -fx-border-color: #cfd7df;
+}
+
+/* ===== ACCOUNTS ===== */
+
+.account-card-name {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #111827;
+}
+
+.account-card-type {
+    -fx-font-size: 12px;
+    -fx-text-fill: #6b7280;
+}
+
+.account-card-balance {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #111827;
+}
+
+.account-card-balance-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #6b7280;
+}
+
+.account-card-totals {
+    -fx-padding: 4 0 0 0;
+    -fx-alignment: CENTER-LEFT;
+}
+.account-card-income {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2f6b3c;
+}
+
+.account-card-expense {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #b14444;
+}
+
+/* ===== TRANSACTIONS ===== */
+
+.transaction-card-top {
+    -fx-padding: 0 0 2 0;
+}
+
+.transaction-card-amount {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.transaction-card-income {
+    -fx-text-fill: #2f6b3c;
+}
+
+.transaction-card-expense {
+    -fx-text-fill: #b14444;
+}
+
+.transaction-card-transfer {
+    -fx-text-fill: #555555;
+}
+
+.transaction-card-type {
+    -fx-font-size: 12px;
+    -fx-text-fill: #6b7280;
+    -fx-font-weight: bold;
+}
+
+.transaction-card-name {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #111827;
+}
+
+.transaction-card-meta {
+    -fx-font-size: 12px;
+    -fx-text-fill: #6b7280;
+}
+
+.transaction-card-description {
+    -fx-font-size: 12px;
+    -fx-text-fill: #555555;
+    -fx-padding: 4 0 0 0;
+}
+
+/* ===== CATEGORIES ===== */
+
+.category-card-name {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #111827;
+}
+
+.category-card-type {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.category-card-type-income {
+    -fx-text-fill: #2f6b3c;
+}
+
+.category-card-type-expense {
+    -fx-text-fill: #b14444;
+}
+
+.category-card-total {
+    -fx-font-size: 12px;
+    -fx-text-fill: #555555;
+    -fx-padding: 2 0 0 0;
+}
+
+.category-card-total-muted {
+    -fx-font-size: 12px;
+    -fx-text-fill: #777777;
+    -fx-padding: 2 0 0 0;
+}
+
+/* ===== ESTADOS BALANCE ===== */
+
+.summary-balance-positive {
+    -fx-text-fill: #0f172a;
+}
+
+.summary-balance-negative {
+    -fx-text-fill: #b14444;
+}
+
+.summary-balance-neutral {
+    -fx-text-fill: #475569;
+}
+
+.dialog-pane {
+    -fx-background-color: #fcfcfb;
+    -fx-border-color: #e4e7eb;
+    -fx-border-width: 1;
+}
+
+.dialog-pane .header-panel {
+    -fx-background-color: #fcfcfb;
+}
+
+.dialog-pane .content.label {
+    -fx-text-fill: #334155;
+    -fx-font-size: 13px;
+}
+
+.dialog-pane:header .header-panel .label {
+    -fx-text-fill: #0f172a;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.dialog-pane .button {
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-padding: 8 16 8 16;
+    -fx-font-weight: bold;
+    -fx-background-color: white;
+    -fx-text-fill: #334155;
+    -fx-border-color: #d6dbe1;
+}
+
+.dialog-pane .button:default {
+    -fx-background-color: #2f6b3c;
+    -fx-text-fill: white;
+}
+
+.dialog-pane .button:default:hover {
+    -fx-background-color: #285b33;
+}
+.dialog-pane .text-field,
+.dialog-pane .combo-box,
+.dialog-pane .date-picker {
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #d6dbe1;
+}
+
+.dialog-pane .combo-box-base {
+    -fx-background-color: white;
+}
+
+.account-card-transfer-positive {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2563eb;
+}
+
+.account-card-transfer-negative {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #7c3aed;
+}
+
+.account-card-transfer-neutral {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #6b7280;
+}

@@ -3,40 +3,48 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
 <BorderPane xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.financeapp.controllers.TransactionController">
+            fx:controller="org.financeapp.controllers.TransactionController"
+            styleClass="transactions-root">
 
     <padding>
-        <Insets top="10" right="10" bottom="10" left="10"/>
+        <Insets top="16" right="16" bottom="16" left="16"/>
     </padding>
 
     <top>
-        <Label text="Transacciones"
-               style="-fx-font-size: 18px; -fx-font-weight: bold;"
-               BorderPane.alignment="CENTER_LEFT"/>
+        <VBox spacing="12" styleClass="transactions-header">
+            <VBox spacing="6">
+                <Label text="Transacciones" styleClass="section-title"/>
+                <Label text="Consulta y gestiona tus movimientos"
+                       styleClass="section-subtitle"/>
+            </VBox>
+
+            <HBox spacing="10" styleClass="transactions-actions">
+                <Button text="Añadir" onAction="#onAdd" styleClass="btn-add"/>
+                <Button text="Editar" onAction="#onEdit" styleClass="btn-edit"/>
+                <Button text="Eliminar" onAction="#onDelete" styleClass="btn-delete"/>
+            </HBox>
+        </VBox>
     </top>
 
     <center>
-        <ListView fx:id="list" prefHeight="400.0"/>
+        <ScrollPane fitToWidth="true"
+                    pannable="true"
+                    hbarPolicy="NEVER"
+                    vbarPolicy="AS_NEEDED"
+                    styleClass="transactions-scroll">
+            <content>
+                <VBox fx:id="transactionsContainer"
+                      spacing="14"
+                      styleClass="transactions-container"/>
+            </content>
+        </ScrollPane>
     </center>
-
-    <bottom>
-        <HBox spacing="10" BorderPane.alignment="CENTER_LEFT">
-            <padding>
-                <Insets top="10"/>
-            </padding>
-
-            <children>
-                <Button text="Añadir" onAction="#onAdd"/>
-                <Button text="Editar" onAction="#onEdit"/>
-                <Button text="Eliminar" onAction="#onDelete"/>
-            </children>
-        </HBox>
-    </bottom>
 
 </BorderPane>

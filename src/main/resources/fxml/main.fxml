@@ -1,33 +1,108 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
 <BorderPane xmlns="http://javafx.com/javafx/17"
-            xmlns:fx="http://javafx.com/fxml/1">
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.financeapp.controllers.MainController"
+            styleClass="app-root">
+
+    <padding>
+        <Insets top="18" right="18" bottom="18" left="18"/>
+    </padding>
+
+    <top>
+        <VBox spacing="12">
+            <padding>
+                <Insets bottom="12"/>
+            </padding>
+
+            <!-- RESUMEN SUPERIOR -->
+            <FlowPane hgap="24"
+                      vgap="14"
+                      prefWrapLength="900"
+                      alignment="CENTER_LEFT"
+                      styleClass="top-panel">
+
+                <padding>
+                    <Insets top="20" right="22" bottom="20" left="22"/>
+                </padding>
+
+                <VBox spacing="6">
+                    <Label text="Resumen Financiero"
+                           styleClass="summary-title"/>
+
+                    <Label fx:id="lblTotalBalance"
+                           text="0,00 €"
+                           styleClass="summary-balance"/>
+                </VBox>
+
+                <HBox spacing="12" alignment="CENTER_LEFT" styleClass="summary-side-cards">
+                    <HBox.margin>
+                        <Insets left="18"/>
+                    </HBox.margin>
+
+                    <VBox spacing="4" styleClass="summary-mini-card,summary-mini-card-income">
+                        <Label text="Ingresos"
+                               styleClass="summary-mini-title,summary-mini-title-income"/>
+                        <Label fx:id="lblTotalIncome"
+                               text="0,00 €"
+                               styleClass="summary-mini-value,summary-mini-value-income"/>
+                    </VBox>
+
+                    <VBox spacing="4" styleClass="summary-mini-card,summary-mini-card-expense">
+                        <Label text="Gastos"
+                               styleClass="summary-mini-title,summary-mini-title-expense"/>
+                        <Label fx:id="lblTotalExpense"
+                               text="0,00 €"
+                               styleClass="summary-mini-value,summary-mini-value-expense"/>
+                    </VBox>
+                </HBox>
+            </FlowPane>
+
+            <!-- NAVEGACIÓN -->
+            <HBox spacing="20" styleClass="nav-bar">
+                <Button fx:id="btnAccounts"
+                        text="Cuentas"
+                        onAction="#showAccounts"
+                        styleClass="nav-button"/>
+
+                <Button fx:id="btnTransactions"
+                        text="Transacciones"
+                        onAction="#showTransactions"
+                        styleClass="nav-button"/>
+
+                <Button fx:id="btnCategories"
+                        text="Categorías"
+                        onAction="#showCategories"
+                        styleClass="nav-button"/>
+            </HBox>
+        </VBox>
+    </top>
 
     <center>
-        <TabPane tabClosingPolicy="UNAVAILABLE">
-            <tabs>
-                <Tab text="Transacciones">
-                    <content>
-                        <fx:include source="transactions.fxml"/>
-                    </content>
-                </Tab>
+        <StackPane styleClass="content-panel">
+            <children>
+                <VBox fx:id="accountsPage" visible="true" managed="true">
+                    <fx:include fx:id="accountsView" source="/fxml/accounts.fxml"/>
+                </VBox>
 
-                <Tab text="Categorías">
-                    <content>
-                        <fx:include source="categories.fxml"/>
-                    </content>
-                </Tab>
+                <VBox fx:id="transactionsPage" visible="false" managed="false">
+                    <fx:include fx:id="transactionsView" source="/fxml/transactions.fxml"/>
+                </VBox>
 
-                <Tab text="Cuentas">
-                    <content>
-                        <fx:include source="accounts.fxml"/>
-                    </content>
-                </Tab>
-            </tabs>
-        </TabPane>
+                <VBox fx:id="categoriesPage" visible="false" managed="false">
+                    <fx:include fx:id="categoriesView" source="/fxml/categories.fxml"/>
+                </VBox>
+            </children>
+        </StackPane>
     </center>
 
 </BorderPane>
