@@ -34,6 +34,7 @@ description TEXT,
 FOREIGN KEY (account_id) REFERENCES account(id) ON DELETE RESTRICT,
 FOREIGN KEY (category_id) REFERENCES category(id) ON DELETE RESTRICT,
 FOREIGN KEY (to_account_id) REFERENCES account(id) ON DELETE RESTRICT,
+
     -- Reglas para el tipo de transacción, sea ingreso/gasto o transferencia.
     CHECK (
     (type IN ('INCOME', 'EXPENSE') AND category_id IS NOT NULL AND to_account_id IS NULL)
@@ -49,25 +50,24 @@ CREATE INDEX IF NOT EXISTS idx_finance_transaction_to_account ON finance_transac
 CREATE INDEX IF NOT EXISTS index_financeTransaction_category ON finance_transaction(category_id);
 CREATE INDEX IF NOT EXISTS idx_finance_transaction_type ON finance_transaction(type);
 
--- Seed para cuenta por defecto.
-INSERT INTO account (name, type)
-SELECT 'Efectivo', 'CASH'
-WHERE NOT EXISTS (SELECT 1 FROM account);
+-- Seed para cuenta por defecto: Efectivo y Banco
+INSERT OR IGNORE INTO account (name, type, initial_balance)
+VALUES ('Bancaria', 'BANK', 0);
+
+INSERT OR IGNORE INTO account (name, type, initial_balance)
+VALUES ('Efectivo', 'CASH', 0);
+
 
 -- Seed para categorias imprescindibles, para evitar duplicados en el create del CRUD.
 
-INSERT INTO category (name, kind)
-SELECT 'Nómina', 'INCOME'
-WHERE NOT EXISTS (SELECT 1 FROM category WHERE name='Nómina');
+INSERT OR IGNORE INTO category (name, kind)
+VALUES ('Nómina', 'INCOME');
 
-INSERT INTO category (name, kind)
-SELECT 'Comida', 'EXPENSE'
-WHERE NOT EXISTS (SELECT 1 FROM category WHERE name='Comida');
+INSERT OR IGNORE INTO category (name, kind)
+VALUES ('Comida', 'EXPENSE');
 
-INSERT INTO category (name, kind)
-SELECT 'Transporte', 'EXPENSE'
-WHERE NOT EXISTS (SELECT 1 FROM category WHERE name='Transporte');
+INSERT OR IGNORE INTO category (name, kind)
+VALUES ('Transporte', 'EXPENSE');
 
-INSERT INTO category (name, kind)
-SELECT 'Ocio', 'EXPENSE'
-WHERE NOT EXISTS (SELECT 1 FROM category WHERE name='Ocio');
+INSERT OR IGNORE INTO category (name, kind)
+VALUES ('Ocio', 'EXPENSE');
