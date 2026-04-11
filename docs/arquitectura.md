@@ -17,6 +17,7 @@ Campos:
 - id (PK)
 - name
 - type
+- initialBalance
 
 ### Category
 Permite clasificar las transacciones.
@@ -33,6 +34,7 @@ Campos:
 - id (PK)
 - account_id (FK)
 - category_id (FK)
+- toAccountId
 - amount
 - date
 - description
