@@ -12,23 +12,22 @@ public class Main extends Application {
     public void start(Stage stage) {
         try {
             Database.initialize();
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));
             Scene scene = new Scene(loader.load(), 700, 450);
+
+            scene.getStylesheets().add(
+                    getClass().getResource("/styles/style.css").toExternalForm()
+            );
 
             stage.setTitle("Finance App");
             stage.setScene(scene);
             stage.show();
-            var txService = new org.financeapp.services.FinanceTransactionService(
-                    new org.financeapp.data.dao.FinanceTransactionDao()
-            );
-
 
         } catch (Exception e) {
-            throw new RuntimeException("La base de datos no inicia correctamente");
+            e.printStackTrace();
+            throw new RuntimeException("Error al iniciar la aplicación.", e);
         }
-
-
-
     }
 
     public static void main(String[] args) {
