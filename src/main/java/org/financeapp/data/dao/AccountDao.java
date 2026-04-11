@@ -137,7 +137,6 @@ public class AccountDao {
                         WHEN ft.type = 'EXPENSE' AND ft.account_id = ? THEN -ft.amount
                         WHEN ft.type = 'TRANSFER' AND ft.account_id = ? THEN -ft.amount
                         WHEN ft.type = 'TRANSFER' AND ft.to_account_id = ? THEN ft.amount
-                        ELSE 0
                     END
                 ), 0)
                 FROM finance_transaction ft
@@ -147,10 +146,13 @@ public class AccountDao {
         try (Connection connection = Database.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
+            // CASE - Si es income o expense. Las 4 opciones en el formulario a rellenar.
             preparedStatement.setInt(1, id);
             preparedStatement.setInt(2, id);
             preparedStatement.setInt(3, id);
             preparedStatement.setInt(4, id);
+
+            // WHERE -  De que cuenta a que cuenta se efectua la transferencia.
             preparedStatement.setInt(5, id);
             preparedStatement.setInt(6, id);
 
@@ -177,4 +179,93 @@ public class AccountDao {
         String message = exception.getMessage();
         return message != null && message.toLowerCase().contains("foreign key");
     }
+
+    public double totalIncome() throws Exception {
+        final String sql =
+                """
+                SELECT COALESCE(SUM(amount), 0)
+                FROM finance_transaction
+                WHERE type = 'INCOME'
+                """;
+
+        try (Connection connection = Database.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            if (resultSet.next()) {
+                return resultSet.getDouble(1);
+            }
+        }
+
+        return 0;
+    }
+
+    public double totalExpense() throws Exception {
+        final String sql =
+                """
+                SELECT COALESCE(SUM(amount), 0)
+                FROM finance_transaction
+                WHERE type = 'EXPENSE'
+                """;
+
+        try (Connection connection = Database.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            if (resultSet.next()) {
+                return resultSet.getDouble(1);
+            }
+        }
+
+        return 0;
+    }
+
+    public double totalIncomeByAccount(int accountId) throws Exception {
+        final String sql =
+                """
+                SELECT COALESCE(SUM(amount), 0)
+                FROM finance_transaction
+                WHERE type = 'INCOME' AND account_id = ?
+                """;
+
+        try (Connection connection = Database.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setInt(1, accountId);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getDouble(1);
+                }
+            }
+        }
+
+        return 0;
+    }
+
+    public double totalExpenseByAccount(int accountId) throws Exception {
+        final String sql =
+                """
+                SELECT COALESCE(SUM(amount), 0)
+                FROM finance_transaction
+                WHERE type = 'EXPENSE' AND account_id = ?
+                """;
+
+        try (Connection connection = Database.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setInt(1, accountId);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getDouble(1);
+                }
+            }
+        }
+
+        return 0;
+    }
+
+
+
 }
