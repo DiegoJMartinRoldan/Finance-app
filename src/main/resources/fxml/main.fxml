@@ -39,7 +39,7 @@
                     <Label text="Resumen Financiero"
                            styleClass="summary-title"/>
 
-                    <Label fx:id="lblTotalBalance"
+                    <Label fx:id="labelTotalBalance"
                            text="0,00 €"
                            styleClass="summary-balance"/>
                 </VBox>
@@ -52,7 +52,7 @@
                     <VBox spacing="4" styleClass="summary-mini-card,summary-mini-card-income">
                         <Label text="Ingresos"
                                styleClass="summary-mini-title,summary-mini-title-income"/>
-                        <Label fx:id="lblTotalIncome"
+                        <Label fx:id="labelotalIncome"
                                text="0,00 €"
                                styleClass="summary-mini-value,summary-mini-value-income"/>
                     </VBox>
@@ -60,7 +60,7 @@
                     <VBox spacing="4" styleClass="summary-mini-card,summary-mini-card-expense">
                         <Label text="Gastos"
                                styleClass="summary-mini-title,summary-mini-title-expense"/>
-                        <Label fx:id="lblTotalExpense"
+                        <Label fx:id="labelTotalExpense"
                                text="0,00 €"
                                styleClass="summary-mini-value,summary-mini-value-expense"/>
                     </VBox>
@@ -69,17 +69,17 @@
 
             <!-- NAVEGACIÓN -->
             <HBox spacing="20" styleClass="nav-bar">
-                <Button fx:id="btnAccounts"
+                <Button fx:id="buttontAccounts"
                         text="Cuentas"
                         onAction="#showAccounts"
                         styleClass="nav-button"/>
 
-                <Button fx:id="btnTransactions"
+                <Button fx:id="buttontTransactions"
                         text="Transacciones"
                         onAction="#showTransactions"
                         styleClass="nav-button"/>
 
-                <Button fx:id="btnCategories"
+                <Button fx:id="buttontCategories"
                         text="Categorías"
                         onAction="#showCategories"
                         styleClass="nav-button"/>
