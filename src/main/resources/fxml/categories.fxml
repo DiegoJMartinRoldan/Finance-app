@@ -20,8 +20,8 @@
     <top>
         <VBox spacing="12" styleClass="categories-header">
             <VBox spacing="6">
-                <Label text="Organiza tus ingresos y gastoss" styleClass="section-title"/>
-                <Label text="Organiza tus ingresos y gastos"
+                <Label text="Categorías" styleClass="section-title"/>
+                <Label text="Clasifica tus ingresos y gastos"
                        styleClass="section-subtitle"/>
             </VBox>
 
