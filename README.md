@@ -1,4 +1,4 @@
-# Finance App -  Diego J. Martín Roldán.
+# Sistema de gestión de finanzas personales -  Diego J. Martín Roldán.
 
 Prototipo de una app de gestión de finanzas.
 Doble Grado de Desarrollo de Aplicaciones Multiplataforma y Desarrolllo de Aplicaciones Web. Proyecto final 2025-2026.
